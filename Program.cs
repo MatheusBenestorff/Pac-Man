@@ -1,2 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace PacMan
+{
+    class Program
+    {
+        static void Main()
+        {
+            var map = new Map();
+
+            map.Draw();
+        }
+        
+    }
+}
