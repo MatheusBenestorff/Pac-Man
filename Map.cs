@@ -1,8 +1,10 @@
+using System.Diagnostics.Contracts;
+
 namespace PacMan
 {
     public class Map
     {
-        private readonly char WALL = '#';
+        private const char WALL = '#';
         private const char POINT = '.';
         private const char EMPTY_SPACE = ' ';
         public readonly int Height;
@@ -36,7 +38,18 @@ namespace PacMan
         }
 
         //Métodos
-        
+
+        //Porteiro para avisar se a coordenada é uma parede
+        public bool IsWall(int line, int column)
+        {
+            //Verificar se a coordenada estiver fora do mapa
+            if (line < 0 || line >= Height || column < 0 || column >= Width)
+            {
+                return true;
+            }
+            return _grid[line, column] == WALL;
+        }
+
         //Desenhar o mapa na tela
         public void Draw()
         {
