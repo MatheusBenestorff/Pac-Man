@@ -2,38 +2,40 @@ namespace PacMan
 {
     public class Map
     {
-        private const char WALL = '#';
+        private readonly char WALL = '#';
         private const char POINT = '.';
         private const char EMPTY_SPACE = ' ';
+        public readonly int Height;
+        public readonly int Width;
 
         private readonly char[,] _grid;
 
-        // --- Construtor ---
+        //Construtor
         public Map()
         {
             //Tamanho do mapa
-            int height = 15;
-            int width = 30;
-            _grid = new char[height, width];
+            this.Height = 25;
+            this.Width = 50;
+            _grid = new char[this.Height, this.Width];
 
             //Preencher o grid
-            for (int line = 0; line < height; line++)
+            for (int line = 0; line < this.Height; line++)
             {
-                for (int column = 0; column < width; column++)
+                for (int column = 0; column < this.Width; column++)
                 {
-                    if (line == 0 || line == height - 1 || column == 0 || column == width - 1)
+                    if (line == 0 || line == this.Height - 1 || column == 0 || column == this.Width - 1)
                     {
                         _grid[line, column] = WALL; 
                     }
                     else
                     {
-                        _grid[line, column] = POINT; 
+                        _grid[line, column] = EMPTY_SPACE; 
                     }
                 }
             }
         }
 
-        // --- Métodos ---
+        //Métodos
         
         //Desenhar o mapa na tela
         public void Draw()

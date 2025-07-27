@@ -1,7 +1,8 @@
 namespace PacMan
 {
-    public class PacMan
+    public class PacMan : Entity
     {
-        
+
+
     }
 }
