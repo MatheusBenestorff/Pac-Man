@@ -25,6 +25,10 @@ namespace PacMan
 
         public override void Move()
         {
+            //Guardando a posição atual
+            this.PreviousPositionX = this.CurrentPositionX;
+            this.PreviousPositionY = this.CurrentPositionY;
+
             int nextY = CurrentPositionY;
             int nextX = CurrentPositionX;
 
@@ -44,10 +48,10 @@ namespace PacMan
                     break;
             }
 
-            if (!_gameMap.IsWall(nextX, nextY))
+            if (!_gameMap.IsWall(nextY, nextX))
             {
-                CurrentPositionY = nextY;
-                CurrentPositionX = nextX;
+                this.CurrentPositionY = nextY;
+                this.CurrentPositionX = nextX;
             }
         }
         public void HandleInput(ConsoleKey key)

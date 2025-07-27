@@ -1,5 +1,3 @@
-using System.Diagnostics.Contracts;
-
 namespace PacMan
 {
     public class Map
@@ -16,8 +14,8 @@ namespace PacMan
         public Map()
         {
             //Tamanho do mapa
-            this.Height = 25;
-            this.Width = 50;
+            this.Height = 20;
+            this.Width = 40;
             _grid = new char[this.Height, this.Width];
 
             //Preencher o grid
@@ -38,6 +36,19 @@ namespace PacMan
         }
 
         //Métodos
+
+        //Retorna o caractere do mapa em uma coordenada específica.
+        public char GetTileAt(int line, int column)
+        {
+            //Verificar se a coordenada estiver fora do mapa
+            if (line < 0 || line >= this.Height || column < 0 || column >= this.Width)
+            {
+                return ' ';
+            }
+
+            //Retornar qual caracter está na coordenada solicitada
+            return _grid[line, column];
+        }
 
         //Porteiro para avisar se a coordenada é uma parede
         public bool IsWall(int line, int column)
