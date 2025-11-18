@@ -2,21 +2,21 @@ namespace PacMan
 {
     public class Map
     {
-        private const char WALL = '#';
+        private const string WALL = "#";
         private const char POINT = '.';
-        private const char EMPTY_SPACE = ' ';
+        private const string EMPTY_SPACE = " ";
         public readonly int Height;
         public readonly int Width;
 
-        private readonly char[,] _grid;
+        private readonly string[,] _grid;
 
         //Construtor
         public Map()
         {
             //Tamanho do mapa
             this.Height = 20;
-            this.Width = 40;
-            _grid = new char[this.Height, this.Width];
+            this.Width = 35;
+            _grid = new string[this.Height, this.Width];
 
             //Preencher o grid
             for (int line = 0; line < this.Height; line++)
@@ -38,12 +38,12 @@ namespace PacMan
         //Métodos
 
         //Retorna o caractere do mapa em uma coordenada específica.
-        public char GetTileAt(int line, int column)
+        public string GetTileAt(int line, int column)
         {
             //Verificar se a coordenada estiver fora do mapa
             if (line < 0 || line >= this.Height || column < 0 || column >= this.Width)
             {
-                return ' ';
+                return "  ";
             }
 
             //Retornar qual caracter está na coordenada solicitada
@@ -68,7 +68,7 @@ namespace PacMan
             {
                 for (int column = 0; column < _grid.GetLength(1); column++)
                 {
-                    char element = _grid[line, column];
+                    string element = _grid[line, column];
                     Console.Write(element);
                 }
                 Console.WriteLine();

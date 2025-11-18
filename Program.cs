@@ -5,41 +5,50 @@
         static void Main()
         {
             Console.Clear();
-            //Instânciando o Mapa
+
             Map map = new Map();
+
+            Menu menu = new Menu();
 
             //Instânciando o PacMan e injetando o Mapa
             PacMan pacman = new PacMan(map);
 
             ConsoleRenderer renderer = new ConsoleRenderer(map);
 
-
             Console.CursorVisible = false;
+            int selectedOption = menu.Show();
 
-            renderer.DrawMap(); 
-
-            bool isRunning = true;
-
-            // --- GAME LOOP ---
-            while (isRunning)
+            if (selectedOption == 0)
             {
-                //PROCESSAR INPUT
-                if (Console.KeyAvailable)
+                renderer.DrawMap();
+
+                bool isRunning = true;
+
+                // --- GAME LOOP ---
+                while (isRunning)
                 {
-                    ConsoleKeyInfo key = Console.ReadKey(true);
-                    pacman.HandleInput(key.Key);
+                    //PROCESSAR INPUT
+                    if (Console.KeyAvailable)
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        pacman.HandleInput(key.Key);
+                    }
+
+                    //ATUALIZAR ESTADO DO JOGO
+                    pacman.Move();
+
+                    //RENDERIZAR A TELA
+                    renderer.Draw(pacman);
+
+                    //CONTROLAR A VELOCIDADE DO JOGO
+                    Thread.Sleep(100);
                 }
-
-                //ATUALIZAR ESTADO DO JOGO
-                pacman.Move();
-
-
-                //RENDERIZAR A TELA
-                renderer.Draw(pacman);
-
-                //CONTROLAR A VELOCIDADE DO JOGO
-                Thread.Sleep(200);
             }
+            else if (selectedOption == 1)
+            {
+            }
+
+
 
         }
     }

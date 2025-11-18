@@ -18,7 +18,7 @@ namespace PacMan
             this.SpawnPositionY = _gameMap.Height - 2;
             this.CurrentPositionX = this.SpawnPositionX;
             this.CurrentPositionY = this.SpawnPositionY;
-            this.Symbol = 'C';
+            this.Symbol = "C";
         }
 
         //Comportamento

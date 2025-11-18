@@ -17,7 +17,7 @@ namespace PacMan
 
         public void Draw(PacMan pacman)
         {
-            char tileAtOldPosition = _map.GetTileAt(pacman.PreviousPositionY, pacman.PreviousPositionX);
+            string tileAtOldPosition = _map.GetTileAt(pacman.PreviousPositionY, pacman.PreviousPositionX);
             Console.SetCursorPosition(pacman.PreviousPositionX, pacman.PreviousPositionY);
             Console.Write(tileAtOldPosition);
 
