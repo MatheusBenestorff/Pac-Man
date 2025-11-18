@@ -46,7 +46,7 @@ namespace PacMan
 
         public void DrawMenuArt()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(@"    _ __   __ _  ___ _ __ ___   __ _ _ __  ");
             Console.WriteLine(@"   | '_ \ / _` |/ __| '_ ` _ \ / _` | '_ \ ");
             Console.WriteLine(@"   | |_) | (_| | (__| | | | | | (_| | | | |");
@@ -66,7 +66,7 @@ namespace PacMan
 
                 if (i == SelectedOption)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.Write($"> {Options[i]} <");
                 }
                 else

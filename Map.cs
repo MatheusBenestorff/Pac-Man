@@ -25,11 +25,11 @@ namespace PacMan
                 {
                     if (line == 0 || line == this.Height - 1 || column == 0 || column == this.Width - 1)
                     {
-                        _grid[line, column] = WALL; 
+                        _grid[line, column] = WALL;
                     }
                     else
                     {
-                        _grid[line, column] = EMPTY_SPACE; 
+                        _grid[line, column] = EMPTY_SPACE;
                     }
                 }
             }
@@ -64,6 +64,7 @@ namespace PacMan
         //Desenhar o mapa na tela
         public void Draw()
         {
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             for (int line = 0; line < _grid.GetLength(0); line++)
             {
                 for (int column = 0; column < _grid.GetLength(1); column++)

@@ -17,6 +17,7 @@ namespace PacMan
 
         public void Draw(PacMan pacman)
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             string tileAtOldPosition = _map.GetTileAt(pacman.PreviousPositionY, pacman.PreviousPositionX);
             Console.SetCursorPosition(pacman.PreviousPositionX, pacman.PreviousPositionY);
             Console.Write(tileAtOldPosition);
