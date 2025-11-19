@@ -1,0 +1,11 @@
+services:
+  pacman-game:
+    build: .
+    image: pacman-console
+    container_name: pacman_running
+
+    stdin_open: true
+    tty: true
+
+    volumes:
+      - .:/app

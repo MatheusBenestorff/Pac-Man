@@ -10,7 +10,6 @@ namespace PacMan
 
         private readonly string[,] _grid;
 
-        //Construtor
         public Map()
         {
             //Tamanho do mapa
@@ -35,7 +34,6 @@ namespace PacMan
             }
         }
 
-        //Métodos
 
         //Retorna o caractere do mapa em uma coordenada específica.
         public string GetTileAt(int line, int column)
@@ -50,7 +48,6 @@ namespace PacMan
             return _grid[line, column];
         }
 
-        //Porteiro para avisar se a coordenada é uma parede
         public bool IsWall(int line, int column)
         {
             //Verificar se a coordenada estiver fora do mapa
@@ -61,7 +58,6 @@ namespace PacMan
             return _grid[line, column] == WALL;
         }
 
-        //Desenhar o mapa na tela
         public void Draw()
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;

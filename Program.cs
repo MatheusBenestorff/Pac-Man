@@ -10,7 +10,6 @@
 
             Menu menu = new Menu();
 
-            //Instânciando o PacMan e injetando o Mapa
             PacMan pacman = new PacMan(map);
 
             ConsoleRenderer renderer = new ConsoleRenderer(map);
@@ -24,7 +23,7 @@
 
                 bool isRunning = true;
 
-                // --- GAME LOOP ---
+                //GAME LOOP
                 while (isRunning)
                 {
                     //PROCESSAR INPUT

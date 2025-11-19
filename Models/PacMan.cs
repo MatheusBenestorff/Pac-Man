@@ -10,7 +10,6 @@ namespace PacMan
         public int Points { get; set; } = 0;
         public Direction CurrentDirection { get; set; } = Direction.None;
 
-        //Construtor
         public PacMan(Map gameMap)
         {
             this._gameMap = gameMap;
