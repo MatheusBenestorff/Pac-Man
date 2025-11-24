@@ -5,8 +5,12 @@ namespace PacMan
         private string[] Options = { "Novo Jogo", "Continuar", "Sair" };
         private int SelectedOption = 0;
 
+        private bool _saveExists;
+
         public int Show()
         {
+            _saveExists = SaveSystem.SaveFileExists();
+
             Console.Clear();
             Console.CursorVisible = false;
 
@@ -22,19 +26,21 @@ namespace PacMan
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.DownArrow:
-                        SelectedOption++;
-                        if (SelectedOption >= Options.Length)
+                        do
                         {
-                            SelectedOption = 0;
+                            SelectedOption++;
+                            if (SelectedOption >= Options.Length) SelectedOption = 0;
                         }
+                        while (SelectedOption == 1 && !_saveExists);
                         break;
 
                     case ConsoleKey.UpArrow:
-                        SelectedOption--;
-                        if (SelectedOption < 0)
+                        do
                         {
-                            SelectedOption = Options.Length - 1;
+                            SelectedOption--;
+                            if (SelectedOption < 0) SelectedOption = Options.Length - 1;
                         }
+                        while (SelectedOption == 1 && !_saveExists);
                         break;
 
                     case ConsoleKey.Enter:
@@ -58,23 +64,34 @@ namespace PacMan
             Console.ForegroundColor = ConsoleColor.White;
             // Console.Write("Use as setas (Cima/Baixo) e pressione Enter.");
         }
+
         public void DrawMenuOptions()
         {
             for (int i = 0; i < Options.Length; i++)
             {
                 Console.SetCursorPosition(15, 7 + i);
 
-                if (i == SelectedOption)
+                //Continuar
+                if (i == 1 && !_saveExists)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkBlue;
-                    Console.Write($"> {Options[i]} <");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write($"  {Options[i]}  ");
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write($"  {Options[i]}  ");
+
+                    if (i == SelectedOption)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.Write($"> {Options[i]} <");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.Write($"  {Options[i]}  ");
+                    }
+                    Console.ResetColor();
                 }
-                Console.ResetColor();
             }
         }
     }
