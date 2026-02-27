@@ -13,8 +13,10 @@ namespace PacMan
         public PacMan(Map gameMap)
         {
             this._gameMap = gameMap;
-            this.SpawnPositionX = _gameMap.Width / 2;
-            this.SpawnPositionY = _gameMap.Height - 2;
+            
+            this.SpawnPositionX = _gameMap.PlayerSpawnX;
+            this.SpawnPositionY = _gameMap.PlayerSpawnY;
+            
             this.CurrentPositionX = this.SpawnPositionX;
             this.CurrentPositionY = this.SpawnPositionY;
             this.Symbol = "C";
