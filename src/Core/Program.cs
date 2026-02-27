@@ -6,7 +6,7 @@
         {
             Console.Clear();
 
-            Map map = new Map();
+            Map map = new Map("../Maps/level1.pacmap");
 
             Menu menu = new Menu();
 
