@@ -12,6 +12,8 @@
 
             PacMan pacman = new PacMan(map);
 
+            Ghost ghost1 = new Ghost(map);
+
             ConsoleRenderer renderer = new ConsoleRenderer(map);
 
             Console.CursorVisible = false;
@@ -68,8 +70,11 @@
                 //ATUALIZAR ESTADO DO JOGO
                 pacman.Move();
 
+                ghost1.Move();
+
                 //RENDERIZAR A TELA
                 renderer.Draw(pacman);
+                renderer.Draw(ghost1);
 
                 //FPS
                 Thread.Sleep(100);

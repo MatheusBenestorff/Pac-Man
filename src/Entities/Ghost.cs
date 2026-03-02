@@ -15,6 +15,7 @@ namespace PacMan
             this.CurrentPositionY = this.SpawnPositionY;
             
             this.Symbol = "M"; 
+            this.Color = ConsoleColor.Red;
             this.State = EntityState.Normal;
         }
 

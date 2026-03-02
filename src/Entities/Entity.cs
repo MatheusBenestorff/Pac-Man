@@ -10,6 +10,7 @@ namespace PacMan
         public int SpawnPositionY { get; set; }
         public EntityState State { get; set; }
         public string Symbol { get; set; }
+        public ConsoleColor Color { get; set; } = ConsoleColor.White;
 
 
         public enum EntityState

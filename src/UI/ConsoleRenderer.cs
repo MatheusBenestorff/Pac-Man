@@ -15,15 +15,20 @@ namespace PacMan
             _map.Draw();
         }
 
-        public void Draw(PacMan pacman)
+        public void Draw(Entity entity) 
         {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            string tileAtOldPosition = _map.GetTileAt(pacman.PreviousPositionY, pacman.PreviousPositionX);
-            Console.SetCursorPosition(pacman.PreviousPositionX, pacman.PreviousPositionY);
+            string tileAtOldPosition = _map.GetTileAt(entity.PreviousPositionY, entity.PreviousPositionX);
+            Console.SetCursorPosition(entity.PreviousPositionX, entity.PreviousPositionY);
+            
+            Console.ResetColor(); 
             Console.Write(tileAtOldPosition);
 
-            Console.SetCursorPosition(pacman.CurrentPositionX, pacman.CurrentPositionY);
-            Console.Write(pacman.Symbol);
+            Console.SetCursorPosition(entity.CurrentPositionX, entity.CurrentPositionY);
+            
+            Console.ForegroundColor = entity.Color; 
+            
+            Console.Write(entity.Symbol);
+            Console.ResetColor();
         }
     }
 }
