@@ -12,6 +12,9 @@ namespace PacMan
         public string Symbol { get; set; }
         public ConsoleColor Color { get; set; } = ConsoleColor.White;
 
+        public enum Direction { Up, Down, Left, Right, None }
+        public Direction CurrentDirection { get; set; } = Direction.None;
+
 
         public enum EntityState
         {

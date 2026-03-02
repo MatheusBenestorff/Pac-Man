@@ -4,11 +4,8 @@ namespace PacMan
     {
         private readonly Map _gameMap;
 
-        public enum Direction { Up, Down, Left, Right, None }
-
         public int Life { get; set; } = 3;
         public int Points { get; set; } = 0;
-        public Direction CurrentDirection { get; set; } = Direction.None;
 
         public PacMan(Map gameMap)
         {
