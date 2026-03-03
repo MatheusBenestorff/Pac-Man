@@ -23,6 +23,8 @@
 
             if (selectedOption == 0)
             {
+                pacman.Life = 3;
+                pacman.Points = 0;
 
             }
 
@@ -115,19 +117,26 @@
                 Console.ResetColor();
                 Console.WriteLine($"Sua pontuação final foi: {pacman.Points}");
                 Thread.Sleep(2000); 
+
+                SaveSystem.DeleteSave();
+            }
+            else
+            {
+                //GAME SAVE
+                GameSaveData dataToSave = new GameSaveData
+                {
+                    CurrentScore = pacman.Points,
+                    Lives = pacman.Life,
+                    PacManX = pacman.CurrentPositionX,
+                    PacManY = pacman.CurrentPositionY,
+                    SaveDate = DateTime.Now
+                };
+
+                SaveSystem.SaveGame(dataToSave);
+                
             }
 
-            //GAME SAVE
-            GameSaveData dataToSave = new GameSaveData
-            {
-                CurrentScore = pacman.Points,
-                Lives = pacman.Life,
-                PacManX = pacman.CurrentPositionX,
-                PacManY = pacman.CurrentPositionY,
-                SaveDate = DateTime.Now
-            };
 
-            SaveSystem.SaveGame(dataToSave);
         }
     }
 }

@@ -31,6 +31,14 @@ namespace PacMan
         {
             return File.Exists(FILE_NAME);
         }
+
+        public static void DeleteSave()
+        {
+            if (File.Exists(FILE_NAME))
+            {
+                File.Delete(FILE_NAME);
+            }
+        }
     }
 }
 
