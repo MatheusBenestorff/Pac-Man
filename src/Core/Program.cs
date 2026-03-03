@@ -72,12 +72,49 @@
 
                 ghost1.Move();
 
-                //RENDERIZAR A TELA
-                renderer.Draw(pacman);
-                renderer.Draw(ghost1);
+                bool exactCollision = pacman.CurrentPositionX == ghost1.CurrentPositionX && 
+                                    pacman.CurrentPositionY == ghost1.CurrentPositionY;
 
-                //FPS
-                Thread.Sleep(100);
+                bool intersectionCollision = (pacman.CurrentPositionX == ghost1.PreviousPositionX && 
+                                        pacman.CurrentPositionY == ghost1.PreviousPositionY) &&
+                                        (pacman.PreviousPositionX == ghost1.CurrentPositionX && 
+                                        pacman.PreviousPositionY == ghost1.CurrentPositionY);
+
+                if (exactCollision || intersectionCollision)
+                {
+                    pacman.LoseLife();
+                    
+                    ghost1.ResetPosition();
+
+                    Console.Clear();
+                    renderer.DrawMap(); 
+                    Thread.Sleep(500);  
+
+                    // GAME OVER?
+                    if (pacman.Life <= 0)
+                    {
+                        isRunning = false;
+                    }
+                }
+
+                if (isRunning) 
+                {
+                    renderer.Draw(pacman);
+                    renderer.Draw(ghost1);
+                }
+
+                Thread.Sleep(200);
+            }
+
+            // --- FIM DO LOOP  ---
+            Console.Clear();
+            if (pacman.Life <= 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("=== GAME OVER ===");
+                Console.ResetColor();
+                Console.WriteLine($"Sua pontuação final foi: {pacman.Points}");
+                Thread.Sleep(2000); 
             }
 
             //GAME SAVE

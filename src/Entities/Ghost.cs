@@ -54,5 +54,11 @@ namespace PacMan
         {
             return (Direction)_random.Next(0, 4);
         }
+
+        public void ResetPosition()
+        {
+            this.CurrentPositionX = this.SpawnPositionX;
+            this.CurrentPositionY = this.SpawnPositionY;
+        }
     }
 }
