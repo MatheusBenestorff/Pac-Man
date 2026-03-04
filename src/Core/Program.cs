@@ -131,9 +131,11 @@
                     renderer.Draw(pacman);
 
                     foreach (Ghost ghost in ghosts)
-                        {
-                            renderer.Draw(ghost);
-                        }
+                    {
+                        renderer.Draw(ghost);
+                    }
+
+                    renderer.DrawHUD(pacman);
                 }
 
                 Thread.Sleep(200);

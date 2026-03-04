@@ -28,5 +28,16 @@ namespace PacMan
             Console.Write(entity.Symbol);
             Console.ResetColor();
         }
+
+        public void DrawHUD(PacMan pacman)
+        {
+            Console.SetCursorPosition(0, _map.Height + 1);
+            
+            Console.ForegroundColor = ConsoleColor.White;
+            
+            Console.Write($"Lives: {pacman.Life}  |  Points: {pacman.Points}      ");
+            
+            Console.ResetColor();
+        }
     }
 }
