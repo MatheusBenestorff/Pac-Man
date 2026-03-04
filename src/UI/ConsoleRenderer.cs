@@ -15,7 +15,19 @@ namespace PacMan
             _map.Draw();
         }
 
-        public void Draw(Entity entity) 
+        public void DrawGame(PacMan pacman, List<Ghost> ghosts, int levelNumber)
+        {
+            DrawEntity(pacman);
+
+            foreach (Ghost ghost in ghosts)
+            {
+                DrawEntity(ghost);
+            }
+
+            DrawHUD(pacman, levelNumber);
+        }
+
+        public void DrawEntity(Entity entity) 
         {
             string tileAtOldPosition = _map.GetTileAt(entity.PreviousPositionY, entity.PreviousPositionX);
 
@@ -29,15 +41,26 @@ namespace PacMan
             Console.ResetColor();
         }
 
-        public void DrawHUD(PacMan pacman)
+        public void DrawHUD(PacMan pacman, int levelNumber)
         {
             Console.SetCursorPosition(0, _map.Height + 1);
             
             Console.ForegroundColor = ConsoleColor.White;
             
-            Console.Write($"Lives: {pacman.Life}  |  Points: {pacman.Points}      ");
+            Console.Write($"Level: {levelNumber}  |  Lives: {pacman.Life}  |  Points: {pacman.Points}      ");
             
             Console.ResetColor();
+        }
+
+        public void ShowWinScreen()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("===========================");
+            Console.WriteLine("          YOU WON!         ");
+            Console.WriteLine("===========================");
+            Console.ResetColor();
+            Thread.Sleep(2000); 
         }
     }
 }

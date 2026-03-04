@@ -28,5 +28,18 @@ namespace PacMan
             
         }
 
+        public bool IsCollidingWith(Entity other)
+        {
+            bool exactCollision = this.CurrentPositionX == other.CurrentPositionX && 
+                                this.CurrentPositionY == other.CurrentPositionY;
+
+            bool intersectionCollision = (this.CurrentPositionX == other.PreviousPositionX && 
+                                        this.CurrentPositionY == other.PreviousPositionY) &&
+                                        (this.PreviousPositionX == other.CurrentPositionX && 
+                                        this.PreviousPositionY == other.CurrentPositionY);
+
+            return exactCollision || intersectionCollision;
+        }
+
     }
 }

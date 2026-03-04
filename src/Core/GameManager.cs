@@ -91,13 +91,7 @@ namespace PacMan
                 _pacman.CurrentPositionY = map.PlayerSpawnY;
             }
 
-            List<Ghost> ghosts = new List<Ghost>
-            {
-                new Ghost(map) { Color = ConsoleColor.Red },
-                new Ghost(map) { Color = ConsoleColor.Magenta },
-                new Ghost(map) { Color = ConsoleColor.Cyan },
-                new Ghost(map) { Color = ConsoleColor.DarkYellow }
-            };
+            List<Ghost> ghosts = CreateGhosts(map);
 
             renderer.DrawMap();
             bool isLevelRunning = true;
@@ -131,13 +125,7 @@ namespace PacMan
 
                     if (map.RemainingPoints == 0)
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("===========================");
-                        Console.WriteLine("          YOU WON!         ");
-                        Console.WriteLine("===========================");
-                        Console.ResetColor();
-                        Thread.Sleep(2000); 
+                        renderer.ShowWinScreen();
 
                         levelCleared = true;
                         isLevelRunning = false; 
@@ -154,50 +142,36 @@ namespace PacMan
 
                 foreach (Ghost ghost in ghosts)
                 {
-                    bool exactCollision = _pacman.CurrentPositionX == ghost.CurrentPositionX && 
-                                        _pacman.CurrentPositionY == ghost.CurrentPositionY;
-
-                    bool intersectionCollision = (_pacman.CurrentPositionX == ghost.PreviousPositionX && 
-                                                _pacman.CurrentPositionY == ghost.PreviousPositionY) &&
-                                                (_pacman.PreviousPositionX == ghost.CurrentPositionX && 
-                                                _pacman.PreviousPositionY == ghost.CurrentPositionY);
-
-                    if (exactCollision || intersectionCollision)
+                    if (_pacman.IsCollidingWith(ghost))
                     {
                         pacmanDied = true;
                         break; 
                     }
                 
                 }
-                    if (pacmanDied)
+
+                if (pacmanDied)
+                {
+                    _pacman.LoseLife();
+                    
+                    foreach (Ghost ghost in ghosts)
                     {
-                        _pacman.LoseLife();
-                        
-                        foreach (Ghost ghost in ghosts)
-                        {
-                            ghost.ResetPosition();
-                        }
-
-                        Console.Clear();
-                        renderer.DrawMap(); 
-                        Thread.Sleep(500);  
-
-                        if (_pacman.Life <= 0)
-                        {
-                            isLevelRunning = false;
-                        }
+                        ghost.ResetPosition();
                     }
+
+                    Console.Clear();
+                    renderer.DrawMap(); 
+                    Thread.Sleep(500);  
+
+                    if (_pacman.Life <= 0)
+                    {
+                        isLevelRunning = false;
+                    }
+                }
 
                 if (isLevelRunning) 
                 {
-                    renderer.Draw(_pacman);
-
-                    foreach (Ghost ghost in ghosts)
-                    {
-                        renderer.Draw(ghost);
-                    }
-
-                    renderer.DrawHUD(_pacman);
+                    renderer.DrawGame(_pacman, ghosts, levelNumber); 
                 }
 
                 Thread.Sleep(200);
@@ -234,6 +208,17 @@ namespace PacMan
                 SaveSystem.SaveGame(dataToSave);
                 
             }
+        }
+
+        private List<Ghost> CreateGhosts(Map map)
+        {
+            return new List<Ghost>
+            {
+                new Ghost(map) { Color = ConsoleColor.Red },
+                new Ghost(map) { Color = ConsoleColor.Magenta },
+                new Ghost(map) { Color = ConsoleColor.Cyan },
+                new Ghost(map) { Color = ConsoleColor.DarkYellow }
+            };
         }
     }
 }
