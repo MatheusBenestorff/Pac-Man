@@ -2,7 +2,7 @@ namespace PacMan
 {
     public class PacMan : Entity
     {
-        private readonly Map _gameMap;
+        private Map _gameMap;
 
         public int Life { get; set; } = 3;
         public int Points { get; set; } = 0;
@@ -84,6 +84,13 @@ namespace PacMan
             this.Life--;
             this.CurrentPositionX = this.SpawnPositionX;
             this.CurrentPositionY = this.SpawnPositionY;
+        }
+
+        public void SetMap(Map newMap)
+        {
+            this._gameMap = newMap;
+            this.SpawnPositionX = newMap.PlayerSpawnX;
+            this.SpawnPositionY = newMap.PlayerSpawnY;
         }
 
     }
