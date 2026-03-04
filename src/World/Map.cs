@@ -2,9 +2,9 @@ namespace PacMan
 {
     public class Map
     {
-        private const string WALL = "#";
-        private const string POINT = ".";
-        private const string EMPTY_SPACE = " ";
+        private const string WALL = "##";
+        private const string POINT = ". ";
+        private const string EMPTY_SPACE = "  ";
         public readonly int Height;
         public readonly int Width;
 

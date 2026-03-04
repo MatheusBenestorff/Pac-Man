@@ -18,15 +18,13 @@ namespace PacMan
         public void Draw(Entity entity) 
         {
             string tileAtOldPosition = _map.GetTileAt(entity.PreviousPositionY, entity.PreviousPositionX);
-            Console.SetCursorPosition(entity.PreviousPositionX, entity.PreviousPositionY);
-            
+
+            Console.SetCursorPosition(entity.PreviousPositionX * 2, entity.PreviousPositionY);
             Console.ResetColor(); 
             Console.Write(tileAtOldPosition);
-
-            Console.SetCursorPosition(entity.CurrentPositionX, entity.CurrentPositionY);
             
+            Console.SetCursorPosition(entity.CurrentPositionX * 2, entity.CurrentPositionY);
             Console.ForegroundColor = entity.Color; 
-            
             Console.Write(entity.Symbol);
             Console.ResetColor();
         }
