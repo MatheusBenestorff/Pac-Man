@@ -19,25 +19,7 @@ namespace PacMan
 
             if (selectedOption == 2) return; // Sair
 
-            _currentLevel = 1; 
-
-            _pacman = new PacMan(new Map("maps/level1.pacmap"));
-
-            if (selectedOption == 0) // Novo Jogo
-            {
-                _pacman.Life = 3;
-                _pacman.Points = 0;
-            }
-            else if (selectedOption == 1) // Continuar
-            {
-                GameSaveData data = SaveSystem.LoadGame();
-                _pacman.Points = data.CurrentScore;
-                _pacman.Life = data.Lives;
-                _currentLevel = data.Level > 0 ? data.Level : 1; 
-
-                _savedX = data.PacManX;
-                _savedY = data.PacManY;
-            }
+            InitializeGameState(selectedOption);
 
             _isGameRunning = true;
 
@@ -58,6 +40,29 @@ namespace PacMan
             
 
             HandleGameOverOrSave();
+        }
+
+        private void InitializeGameState(int selectedOption)
+        {
+            _currentLevel = 1; 
+
+            _pacman = new PacMan(new Map("maps/level1.pacmap"));
+
+            if (selectedOption == 0) // Novo Jogo
+            {
+                _pacman.Life = 3;
+                _pacman.Points = 0;
+            }
+            else if (selectedOption == 1) // Continuar
+            {
+                GameSaveData data = SaveSystem.LoadGame();
+                _pacman.Points = data.CurrentScore;
+                _pacman.Life = data.Lives;
+                _currentLevel = data.Level > 0 ? data.Level : 1; 
+
+                _savedX = data.PacManX;
+                _savedY = data.PacManY;
+            }
         }
 
         // Roda UMA fase inteira e retorna TRUE se ele limpou o mapa, e FALSE se morreu/saiu
@@ -182,6 +187,8 @@ namespace PacMan
 
         private void HandleGameOverOrSave()
         {
+            Console.Clear();
+            
             if (_pacman.Life <= 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
