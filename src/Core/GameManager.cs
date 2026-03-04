@@ -212,6 +212,11 @@ namespace PacMan
                     Level = _currentLevel
                 };
 
+                if (SaveSystem.IsHighScore(dataToSave.CurrentScore))
+                {
+                    dataToSave.HighScore = dataToSave.CurrentScore;
+                }
+
                 SaveSystem.SaveGame(dataToSave);
                 
             }

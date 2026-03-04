@@ -32,6 +32,14 @@ namespace PacMan
             return File.Exists(FILE_NAME);
         }
 
+        public static bool IsHighScore(int currentScore)
+        {
+            GameSaveData data = LoadGame();
+
+            if (currentScore > data.HighScore) return true;
+            else return false;
+        }
+
         public static void DeleteSave()
         {
             if (File.Exists(FILE_NAME))
