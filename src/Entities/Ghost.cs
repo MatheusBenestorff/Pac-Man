@@ -2,7 +2,7 @@ namespace PacMan
 {
     public class Ghost : Entity
     {
-        private readonly Map _gameMap;
+        protected readonly Map _gameMap;
 
         private static readonly Random _random = new Random();
 

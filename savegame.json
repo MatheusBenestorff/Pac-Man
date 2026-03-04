@@ -1,9 +1,9 @@
 {
-  "HighScore": 100,
-  "CurrentScore": 100,
-  "Lives": 1,
+  "HighScore": 80,
+  "CurrentScore": 80,
+  "Lives": 2,
   "Level": 3,
   "PacManX": 23,
-  "PacManY": 1,
-  "SaveDate": "2026-03-04T19:50:44.5213009-03:00"
+  "PacManY": 13,
+  "SaveDate": "2026-03-04T20:16:36.6173136-03:00"
 }

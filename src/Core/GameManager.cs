@@ -226,10 +226,10 @@ namespace PacMan
         {
             return new List<Ghost>
             {
-                new Ghost(map) { Color = ConsoleColor.Red },
-                new Ghost(map) { Color = ConsoleColor.Magenta },
-                new Ghost(map) { Color = ConsoleColor.Cyan },
-                new Ghost(map) { Color = ConsoleColor.DarkYellow }
+                new Blinky(map), 
+                new Pinky(map),  
+                new Inky(map),  
+                new Clyde(map)   // Já sabe que é amarelo escuro
             };
         }
     }
