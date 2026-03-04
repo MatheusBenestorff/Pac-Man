@@ -78,6 +78,11 @@
                 //ATUALIZAR ESTADO DO JOGO
                 pacman.Move();
 
+                if (map.ConsumePoint(pacman.CurrentPositionY, pacman.CurrentPositionX))
+                {
+                    pacman.CollectPoint(10); 
+                }
+
                 foreach (Ghost ghost in ghosts)
                 {
                     ghost.Move();

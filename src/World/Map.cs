@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace PacMan
 {
     public class Map
@@ -85,6 +87,20 @@ namespace PacMan
                 return true;
             }
             return _grid[line, column] == WALL;
+        }
+
+        public bool ConsumePoint(int line, int column)
+        {
+            if(_grid[line, column] == POINT)
+            {
+                _grid[line, column] = EMPTY_SPACE;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Draw()
