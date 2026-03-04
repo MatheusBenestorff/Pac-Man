@@ -12,7 +12,13 @@
 
             PacMan pacman = new PacMan(map);
 
-            Ghost ghost1 = new Ghost(map);
+            List<Ghost> ghosts = new List<Ghost>
+            {
+                new Ghost(map) { Color = ConsoleColor.Red },         // Blinky
+                new Ghost(map) { Color = ConsoleColor.Magenta },     // Pinky 
+                new Ghost(map) { Color = ConsoleColor.Cyan },        // Inky
+                new Ghost(map) { Color = ConsoleColor.DarkYellow }   // Clyde 
+            };
 
             ConsoleRenderer renderer = new ConsoleRenderer(map);
 
@@ -21,7 +27,7 @@
 
             //GAME LOAD
 
-            if (selectedOption == 0)
+            if (selectedOption == 0) // Novo Jogo
             {
                 pacman.Life = 3;
                 pacman.Points = 0;
@@ -72,37 +78,57 @@
                 //ATUALIZAR ESTADO DO JOGO
                 pacman.Move();
 
-                ghost1.Move();
-
-                bool exactCollision = pacman.CurrentPositionX == ghost1.CurrentPositionX && 
-                                    pacman.CurrentPositionY == ghost1.CurrentPositionY;
-
-                bool intersectionCollision = (pacman.CurrentPositionX == ghost1.PreviousPositionX && 
-                                        pacman.CurrentPositionY == ghost1.PreviousPositionY) &&
-                                        (pacman.PreviousPositionX == ghost1.CurrentPositionX && 
-                                        pacman.PreviousPositionY == ghost1.CurrentPositionY);
-
-                if (exactCollision || intersectionCollision)
+                foreach (Ghost ghost in ghosts)
                 {
-                    pacman.LoseLife();
-                    
-                    ghost1.ResetPosition();
-
-                    Console.Clear();
-                    renderer.DrawMap(); 
-                    Thread.Sleep(500);  
-
-                    // GAME OVER?
-                    if (pacman.Life <= 0)
-                    {
-                        isRunning = false;
-                    }
+                    ghost.Move();
                 }
+
+                bool pacmanDied = false;
+
+                foreach (Ghost ghost in ghosts)
+                {
+                    bool exactCollision = pacman.CurrentPositionX == ghost.CurrentPositionX && 
+                                        pacman.CurrentPositionY == ghost.CurrentPositionY;
+
+                    bool intersectionCollision = (pacman.CurrentPositionX == ghost.PreviousPositionX && 
+                                                pacman.CurrentPositionY == ghost.PreviousPositionY) &&
+                                                (pacman.PreviousPositionX == ghost.CurrentPositionX && 
+                                                pacman.PreviousPositionY == ghost.CurrentPositionY);
+
+                    if (exactCollision || intersectionCollision)
+                    {
+                        pacmanDied = true;
+                        break; 
+                    }
+                
+                }
+                    if (pacmanDied)
+                    {
+                        pacman.LoseLife();
+                        
+                        foreach (Ghost ghost in ghosts)
+                        {
+                            ghost.ResetPosition();
+                        }
+
+                        Console.Clear();
+                        renderer.DrawMap(); 
+                        Thread.Sleep(500);  
+
+                        if (pacman.Life <= 0)
+                        {
+                            isRunning = false;
+                        }
+                    }
 
                 if (isRunning) 
                 {
                     renderer.Draw(pacman);
-                    renderer.Draw(ghost1);
+
+                    foreach (Ghost ghost in ghosts)
+                        {
+                            renderer.Draw(ghost);
+                        }
                 }
 
                 Thread.Sleep(200);
