@@ -81,6 +81,20 @@
                 if (map.ConsumePoint(pacman.CurrentPositionY, pacman.CurrentPositionX))
                 {
                     pacman.CollectPoint(10); 
+
+                    if (map.RemainingPoints == 0)
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("===========================");
+                        Console.WriteLine("          YOU WON!         ");
+                        Console.WriteLine("===========================");
+                        Console.ResetColor();
+                        Thread.Sleep(2000); 
+
+                        isRunning = false; 
+                        
+                    }
                 }
 
                 foreach (Ghost ghost in ghosts)

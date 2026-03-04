@@ -9,6 +9,7 @@ namespace PacMan
         private const string EMPTY_SPACE = "  ";
         public readonly int Height;
         public readonly int Width;
+        public int RemainingPoints { get; private set; } = 0;
 
         private readonly string[,] _grid;
 
@@ -41,6 +42,7 @@ namespace PacMan
                             break;
                         case '.':
                             _grid[line, column] = POINT;
+                            this.RemainingPoints++;
                             break;
                         case ' ':
                             _grid[line, column] = EMPTY_SPACE;
@@ -94,7 +96,7 @@ namespace PacMan
             if(_grid[line, column] == POINT)
             {
                 _grid[line, column] = EMPTY_SPACE;
-
+                this.RemainingPoints--;
                 return true;
             }
             else
