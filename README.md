@@ -4,6 +4,8 @@ A classic Pac-Man clone developed purely in **C# (Vanilla)** to run directly in 
 
 ---
 
+![alt text](image.png)
+
 ## Tech Stack
 
 ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
