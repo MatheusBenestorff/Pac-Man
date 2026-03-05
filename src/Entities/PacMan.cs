@@ -53,6 +53,7 @@ namespace PacMan
                 this.CurrentPositionX = nextX;
             }
         }
+        
         public void HandleInput(ConsoleKey key)
         {
             switch (key)

@@ -23,8 +23,12 @@ namespace PacMan
 
             this.CurrentDirection = ChooseRandomDirection();
         }
-
         public override void Move()
+        {
+            MoveRandomly();
+        }
+
+        protected void MoveRandomly() 
         {
             this.PreviousPositionX = this.CurrentPositionX;
             this.PreviousPositionY = this.CurrentPositionY;
@@ -49,6 +53,39 @@ namespace PacMan
             {
                 this.CurrentDirection = ChooseRandomDirection();
             }
+        }
+
+        protected void MoveTowardsTarget(int targetX, int targetY)
+        {
+            this.PreviousPositionX = this.CurrentPositionX;
+            this.PreviousPositionY = this.CurrentPositionY;
+
+            int diffX = targetX - this.CurrentPositionX;
+            int diffY = targetY - this.CurrentPositionY;
+
+            // Pursuit Logic
+            if (Math.Abs(diffX) > Math.Abs(diffY))
+            {
+                if (diffX > 0 && !_gameMap.IsWall(CurrentPositionY, CurrentPositionX + 1))
+                {
+                    this.CurrentPositionX++; return; 
+                }
+                else if (diffX < 0 && !_gameMap.IsWall(CurrentPositionY, CurrentPositionX - 1))
+                {
+                    this.CurrentPositionX--; return; 
+                }
+            }
+            
+            if (diffY > 0 && !_gameMap.IsWall(CurrentPositionY + 1, CurrentPositionX))
+            {
+                this.CurrentPositionY++; return; 
+            }
+            else if (diffY < 0 && !_gameMap.IsWall(CurrentPositionY - 1, CurrentPositionX))
+            {
+                this.CurrentPositionY--; return; 
+            }
+
+            MoveRandomly();
         }
 
         private Direction ChooseRandomDirection()
