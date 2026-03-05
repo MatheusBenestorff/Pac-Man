@@ -4,21 +4,21 @@ namespace PacMan
     {
         protected readonly Map _gameMap;
         protected readonly PacMan _pacman;
-
+        public ConsoleColor OriginalColor { get; protected set; }
         private static readonly Random _random = new Random();
 
         public Ghost(Map gameMap, PacMan pacman)
         {
             this._gameMap = gameMap;
             this._pacman = pacman;
-            
+
             this.SpawnPositionX = _gameMap.EnemySpawnX;
             this.SpawnPositionY = _gameMap.EnemySpawnY;
-            
+
             this.CurrentPositionX = this.SpawnPositionX;
             this.CurrentPositionY = this.SpawnPositionY;
-            
-            this.Symbol = "M "; 
+
+            this.Symbol = "M ";
             this.State = EntityState.Normal;
 
             this.CurrentDirection = ChooseRandomDirection();
@@ -28,7 +28,7 @@ namespace PacMan
             MoveRandomly();
         }
 
-        protected void MoveRandomly() 
+        protected void MoveRandomly()
         {
             this.PreviousPositionX = this.CurrentPositionX;
             this.PreviousPositionY = this.CurrentPositionY;
@@ -60,6 +60,12 @@ namespace PacMan
             this.PreviousPositionX = this.CurrentPositionX;
             this.PreviousPositionY = this.CurrentPositionY;
 
+            if (this.State == EntityState.Vulnerable)
+            {
+                MoveRandomly();
+                return;
+            }
+
             int diffX = targetX - this.CurrentPositionX;
             int diffY = targetY - this.CurrentPositionY;
 
@@ -68,21 +74,21 @@ namespace PacMan
             {
                 if (diffX > 0 && !_gameMap.IsWall(CurrentPositionY, CurrentPositionX + 1))
                 {
-                    this.CurrentPositionX++; return; 
+                    this.CurrentPositionX++; return;
                 }
                 else if (diffX < 0 && !_gameMap.IsWall(CurrentPositionY, CurrentPositionX - 1))
                 {
-                    this.CurrentPositionX--; return; 
+                    this.CurrentPositionX--; return;
                 }
             }
-            
+
             if (diffY > 0 && !_gameMap.IsWall(CurrentPositionY + 1, CurrentPositionX))
             {
-                this.CurrentPositionY++; return; 
+                this.CurrentPositionY++; return;
             }
             else if (diffY < 0 && !_gameMap.IsWall(CurrentPositionY - 1, CurrentPositionX))
             {
-                this.CurrentPositionY--; return; 
+                this.CurrentPositionY--; return;
             }
 
             MoveRandomly();
@@ -97,6 +103,19 @@ namespace PacMan
         {
             this.CurrentPositionX = this.SpawnPositionX;
             this.CurrentPositionY = this.SpawnPositionY;
+        }
+
+        public void SetVulnerable()
+        {
+            this.State = EntityState.Vulnerable;
+            this.OriginalColor = this.Color;
+            this.Color = ConsoleColor.Blue;
+        }
+
+        public void SetNormal()
+        {
+            this.State = EntityState.Normal;
+            this.Color = this.OriginalColor;
         }
     }
 }
