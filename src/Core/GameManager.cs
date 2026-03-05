@@ -212,9 +212,16 @@ namespace PacMan
                     Level = _currentLevel
                 };
 
-                if (SaveSystem.IsHighScore(dataToSave.CurrentScore))
+                GameSaveData oldData = SaveSystem.LoadGame();
+                int currentRecord = (oldData != null) ? oldData.HighScore : 0;
+
+                if (_pacman.Points > currentRecord)
                 {
-                    dataToSave.HighScore = dataToSave.CurrentScore;
+                    dataToSave.HighScore = _pacman.Points; // New Record
+                }
+                else
+                {
+                    dataToSave.HighScore = currentRecord;  // Keep old Record
                 }
 
                 SaveSystem.SaveGame(dataToSave);
@@ -226,10 +233,10 @@ namespace PacMan
         {
             return new List<Ghost>
             {
-                new Blinky(map), 
-                new Pinky(map),  
-                new Inky(map),  
-                new Clyde(map)   // Já sabe que é amarelo escuro
+                new Blinky(map, _pacman),
+                new Pinky(map, _pacman),  
+                new Inky(map, _pacman),  
+                new Clyde(map, _pacman)   
             };
         }
     }

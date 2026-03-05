@@ -35,9 +35,10 @@ namespace PacMan
         public static bool IsHighScore(int currentScore)
         {
             GameSaveData data = LoadGame();
+            int previousHighScore = (data != null) ? data.HighScore : 0;
 
-            if (currentScore > data.HighScore) return true;
-            else return false;
+            return currentScore > previousHighScore;
+
         }
 
         public static void DeleteSave()

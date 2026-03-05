@@ -3,12 +3,14 @@ namespace PacMan
     public class Ghost : Entity
     {
         protected readonly Map _gameMap;
+        protected readonly PacMan _pacman;
 
         private static readonly Random _random = new Random();
 
-        public Ghost(Map gameMap)
+        public Ghost(Map gameMap, PacMan pacman)
         {
             this._gameMap = gameMap;
+            this._pacman = pacman;
             
             this.SpawnPositionX = _gameMap.EnemySpawnX;
             this.SpawnPositionY = _gameMap.EnemySpawnY;
@@ -17,7 +19,6 @@ namespace PacMan
             this.CurrentPositionY = this.SpawnPositionY;
             
             this.Symbol = "M "; 
-            this.Color = ConsoleColor.Red;
             this.State = EntityState.Normal;
 
             this.CurrentDirection = ChooseRandomDirection();
