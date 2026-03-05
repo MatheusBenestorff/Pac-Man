@@ -85,6 +85,8 @@ namespace PacMan
             Map map = new Map(mapPath);
             ConsoleRenderer renderer = new ConsoleRenderer(map);
 
+            renderer.EnsureTerminalSize();
+
             _pacman.SetMap(map);
             if (_savedX != -1 && _savedY != -1)
             {

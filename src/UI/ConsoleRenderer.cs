@@ -12,6 +12,43 @@ namespace PacMan
             _map = map;
         }
 
+        public void EnsureTerminalSize()
+        {
+            int requiredWidth = (_map.Width * SCALE_X) + 2;
+            int requiredHeight = (_map.Height * SCALE_Y) + 3;
+
+            try
+            {
+                if (Console.BufferWidth < requiredWidth) Console.BufferWidth = requiredWidth;
+                if (Console.BufferHeight < requiredHeight) Console.BufferHeight = requiredHeight;
+            }
+            catch
+            {
+            }
+
+            while (Console.WindowWidth < requiredWidth || Console.WindowHeight < requiredHeight)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("============= TELA MUITO PEQUENA =============");
+                Console.ResetColor();
+                Console.WriteLine("\nO labirinto gigante não cabe nesta janela!");
+                Console.WriteLine($"-> Tamanho necessário: {requiredWidth} colunas x {requiredHeight} linhas.");
+                Console.WriteLine($"-> Tamanho atual:      {Console.WindowWidth} colunas x {Console.WindowHeight} linhas.\n");
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("O QUE FAZER:");
+                Console.ResetColor();
+                Console.WriteLine("1. MAXIMIZE a janela do seu terminal.");
+                Console.WriteLine("2. Se já estiver maximizado, use (Ctrl + '-') para diminuir o zoom da fonte.\n");
+
+                Console.WriteLine("Pressione ENTER para verificar novamente...");
+                Console.ReadLine();
+            }
+
+            Console.Clear();
+        }
+
         public void DrawMap()
         {
             Console.SetCursorPosition(0, 0);
