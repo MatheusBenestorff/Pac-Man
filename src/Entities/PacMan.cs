@@ -10,14 +10,21 @@ namespace PacMan
         public PacMan(Map gameMap)
         {
             this._gameMap = gameMap;
-            
+
             this.SpawnPositionX = _gameMap.PlayerSpawnX;
             this.SpawnPositionY = _gameMap.PlayerSpawnY;
-            
+
             this.CurrentPositionX = this.SpawnPositionX;
             this.CurrentPositionY = this.SpawnPositionY;
             this.Symbol = "C ";
             this.Color = ConsoleColor.Yellow;
+
+            this.Sprite = new string[]
+            {
+                " CCCC ",
+                "CCC   ",
+                " CCCC "
+            };
         }
 
         //Comportamento
@@ -53,7 +60,7 @@ namespace PacMan
                 this.CurrentPositionX = nextX;
             }
         }
-        
+
         public void HandleInput(ConsoleKey key)
         {
             switch (key)

@@ -46,7 +46,8 @@ namespace PacMan
                             this.RemainingPoints++;
                             break;
                         case ' ':
-                            _grid[line, column] = EMPTY_SPACE;
+                            _grid[line, column] = POINT;
+                            this.RemainingPoints++;
                             break;
 
                         case '<':

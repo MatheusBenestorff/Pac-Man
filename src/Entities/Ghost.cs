@@ -22,6 +22,13 @@ namespace PacMan
             this.State = EntityState.Normal;
 
             this.CurrentDirection = ChooseRandomDirection();
+
+            this.Sprite = new string[]
+            {
+                @" /  \\",
+                @"| oo |",
+                @" vv vv"
+            };
         }
         public override void Move()
         {
