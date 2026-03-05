@@ -231,11 +231,12 @@ namespace PacMan
 
         private List<Ghost> CreateGhosts(Map map)
         {
+            Blinky blinky = new Blinky(map, _pacman);
             return new List<Ghost>
             {
-                new Blinky(map, _pacman),
+                blinky,
                 new Pinky(map, _pacman),  
-                new Inky(map, _pacman),  
+                new Inky(map, _pacman, blinky), 
                 new Clyde(map, _pacman)   
             };
         }
