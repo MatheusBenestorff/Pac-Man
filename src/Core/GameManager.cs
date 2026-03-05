@@ -1,3 +1,5 @@
+using static PacMan.Entity;
+
 namespace PacMan
 {
     public class GameManager
@@ -29,7 +31,7 @@ namespace PacMan
 
                 if (wonLevel)
                 {
-                    _currentLevel++; 
+                    _currentLevel++;
 
                 }
                 else
@@ -37,14 +39,14 @@ namespace PacMan
                     _isGameRunning = false;
                 }
             }
-            
+
 
             HandleGameOverOrSave();
         }
 
         private void InitializeGameState(int selectedOption)
         {
-            _currentLevel = 1; 
+            _currentLevel = 1;
 
             _pacman = new PacMan(new Map("maps/level1.pacmap"));
 
@@ -58,7 +60,7 @@ namespace PacMan
                 GameSaveData data = SaveSystem.LoadGame();
                 _pacman.Points = data.CurrentScore;
                 _pacman.Life = data.Lives;
-                _currentLevel = data.Level > 0 ? data.Level : 1; 
+                _currentLevel = data.Level > 0 ? data.Level : 1;
 
                 _savedX = data.PacManX;
                 _savedY = data.PacManY;
@@ -68,26 +70,27 @@ namespace PacMan
         // Roda UMA fase inteira e retorna TRUE se ele limpou o mapa, e FALSE se morreu/saiu
         private bool PlayLevel(int levelNumber)
         {
+
             string mapPath = $"maps/level{levelNumber}.pacmap";
-            
+
             if (!File.Exists(mapPath))
             {
                 Console.Clear();
                 Console.WriteLine("Parabéns! Você zerou o jogo!");
                 Thread.Sleep(3000);
-                return false; 
+                return false;
             }
 
             Map map = new Map(mapPath);
             ConsoleRenderer renderer = new ConsoleRenderer(map);
-            
-            _pacman.SetMap(map); 
+
+            _pacman.SetMap(map);
             if (_savedX != -1 && _savedY != -1)
             {
                 _pacman.CurrentPositionX = _savedX;
                 _pacman.CurrentPositionY = _savedY;
-                
-                _savedX = -1; 
+
+                _savedX = -1;
                 _savedY = -1;
             }
             else
@@ -101,6 +104,9 @@ namespace PacMan
             renderer.DrawMap();
             bool isLevelRunning = true;
             bool levelCleared = false;
+
+            int powerTimer = 0;
+            const int POWER_DURATION = 40;
 
             while (isLevelRunning)
             {
@@ -126,15 +132,49 @@ namespace PacMan
 
                 if (map.ConsumePoint(_pacman.CurrentPositionY, _pacman.CurrentPositionX))
                 {
-                    _pacman.CollectPoint(10); 
+                    _pacman.CollectPoint(10);
 
                     if (map.RemainingPoints == 0)
                     {
                         renderer.ShowWinScreen();
 
                         levelCleared = true;
-                        isLevelRunning = false; 
-                        
+                        isLevelRunning = false;
+
+                    }
+                }
+
+                if (map.ConsumePowerPellet(_pacman.CurrentPositionY, _pacman.CurrentPositionX))
+                {
+                    _pacman.CollectPoint(50);
+                    powerTimer = POWER_DURATION;
+
+                    foreach (Ghost ghost in ghosts)
+                    {
+                        ghost.SetVulnerable();
+                    }
+
+                    if (map.RemainingPoints == 0)
+                    {
+                        renderer.ShowWinScreen();
+                        levelCleared = true;
+                        isLevelRunning = false;
+                    }
+                }
+
+                if (powerTimer > 0)
+                {
+                    powerTimer--;
+
+                    if (powerTimer == 0)
+                    {
+                        foreach (Ghost ghost in ghosts)
+                        {
+                            if (ghost.State == EntityState.Vulnerable)
+                            {
+                                ghost.SetNormal();
+                            }
+                        }
                     }
                 }
 
@@ -149,24 +189,32 @@ namespace PacMan
                 {
                     if (_pacman.IsCollidingWith(ghost))
                     {
-                        pacmanDied = true;
-                        break; 
+                        if (ghost.State == EntityState.Vulnerable)
+                        {
+                            _pacman.CollectPoint(200);
+                            ghost.ResetPosition();
+                            ghost.SetNormal();
+                        }
+                        else if (ghost.State == EntityState.Normal)
+                        {
+                            pacmanDied = true;
+                            break;
+                        }
                     }
-                
                 }
 
                 if (pacmanDied)
                 {
                     _pacman.LoseLife();
-                    
+
                     foreach (Ghost ghost in ghosts)
                     {
                         ghost.ResetPosition();
                     }
 
                     Console.Clear();
-                    renderer.DrawMap(); 
-                    Thread.Sleep(500);  
+                    renderer.DrawMap();
+                    Thread.Sleep(500);
 
                     if (_pacman.Life <= 0)
                     {
@@ -174,11 +222,12 @@ namespace PacMan
                     }
                 }
 
-                if (isLevelRunning) 
+                if (isLevelRunning)
                 {
-                    renderer.DrawGame(_pacman, ghosts, levelNumber); 
+                    renderer.DrawGame(_pacman, ghosts, levelNumber);
                 }
 
+                //FPS
                 Thread.Sleep(200);
             }
 
@@ -188,14 +237,14 @@ namespace PacMan
         private void HandleGameOverOrSave()
         {
             Console.Clear();
-            
+
             if (_pacman.Life <= 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("=== GAME OVER ===");
                 Console.ResetColor();
                 Console.WriteLine($"Sua pontuação final foi: {_pacman.Points}");
-                Thread.Sleep(2000); 
+                Thread.Sleep(2000);
 
                 SaveSystem.DeleteSave();
             }
@@ -225,7 +274,7 @@ namespace PacMan
                 }
 
                 SaveSystem.SaveGame(dataToSave);
-                
+
             }
         }
 
@@ -235,9 +284,9 @@ namespace PacMan
             return new List<Ghost>
             {
                 blinky,
-                new Pinky(map, _pacman),  
-                new Inky(map, _pacman, blinky), 
-                new Clyde(map, _pacman)   
+                new Pinky(map, _pacman),
+                new Inky(map, _pacman, blinky),
+                new Clyde(map, _pacman)
             };
         }
     }
