@@ -7,6 +7,7 @@ namespace PacMan
         private const string WALL = "##";
         private const string POINT = ". ";
         private const string EMPTY_SPACE = "  ";
+        private const string POWER_PELLET = "O ";
         public readonly int Height;
         public readonly int Width;
         public int RemainingPoints { get; private set; } = 0;
@@ -25,8 +26,8 @@ namespace PacMan
 
             // Define as dimensões dinamicamente baseadas no arquivo
             this.Height = lines.Length;
-            this.Width = lines[0].Length; 
-            
+            this.Width = lines[0].Length;
+
             _grid = new string[this.Height, this.Width];
 
             for (int line = 0; line < this.Height; line++)
@@ -47,21 +48,26 @@ namespace PacMan
                         case ' ':
                             _grid[line, column] = EMPTY_SPACE;
                             break;
-                        
+
                         case '<':
                             this.PlayerSpawnX = column;
                             this.PlayerSpawnY = line;
                             _grid[line, column] = EMPTY_SPACE;
                             break;
-                        
+
                         case 'o':
                             this.EnemySpawnX = column;
                             this.EnemySpawnY = line;
                             _grid[line, column] = EMPTY_SPACE;
                             break;
-                        
+
+                        case '*':
+                            _grid[line, column] = POWER_PELLET;
+                            this.RemainingPoints++;
+                            break;
+
                         default:
-                            _grid[line, column] = EMPTY_SPACE; 
+                            _grid[line, column] = EMPTY_SPACE;
                             break;
                     }
                 }
@@ -93,16 +99,24 @@ namespace PacMan
 
         public bool ConsumePoint(int line, int column)
         {
-            if(_grid[line, column] == POINT)
+            if (_grid[line, column] == POINT)
             {
                 _grid[line, column] = EMPTY_SPACE;
                 this.RemainingPoints--;
                 return true;
             }
-            else
+            return false;
+        }
+
+        public bool ConsumePowerPellet(int line, int column)
+        {
+            if (_grid[line, column] == POWER_PELLET)
             {
-                return false;
+                _grid[line, column] = EMPTY_SPACE;
+                this.RemainingPoints--;
+                return true;
             }
+            return false;
         }
 
         public void Draw()

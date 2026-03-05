@@ -4,13 +4,13 @@ namespace PacMan
     {
         public Clyde(Map gameMap, PacMan pacman) : base(gameMap, pacman)
         {
-            this.Color = ConsoleColor.DarkYellow; 
+            this.Color = ConsoleColor.DarkYellow;
         }
 
         public override void Move()
         {
             double distanceToPacman = Math.Sqrt(
-                Math.Pow(_pacman.CurrentPositionX - this.CurrentPositionX, 2) + 
+                Math.Pow(_pacman.CurrentPositionX - this.CurrentPositionX, 2) +
                 Math.Pow(_pacman.CurrentPositionY - this.CurrentPositionY, 2)
             );
 
