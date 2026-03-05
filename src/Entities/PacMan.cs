@@ -4,6 +4,8 @@ namespace PacMan
     {
         private Map _gameMap;
 
+        private bool _isMouthOpen = true;
+
         public int Life { get; set; } = 3;
         public int Points { get; set; } = 0;
 
@@ -25,6 +27,59 @@ namespace PacMan
                 "CCC   ",
                 " CCCC "
             };
+        }
+
+        private void UpdateAnimation()
+        {
+            _isMouthOpen = !_isMouthOpen;
+
+            if (!_isMouthOpen)
+            {
+                this.Sprite = new string[]
+                {
+                    " CCCC ",
+                    "CCCCCC",
+                    " CCCC "
+                };
+            }
+            else
+            {
+                switch (CurrentDirection)
+                {
+                    case Direction.Right:
+                        this.Sprite = new string[]
+                        {
+                            " CCCC ",
+                            "CCC   ",
+                            " CCCC "
+                        };
+                        break;
+                    case Direction.Left:
+                        this.Sprite = new string[]
+                        {
+                            " CCCC ",
+                            "   CCC",
+                            " CCCC "
+                        };
+                        break;
+                    case Direction.Up:
+                        this.Sprite = new string[]
+                        {
+                            " C  C ",
+                            "CCCCCC",
+                            " CCCC "
+                        };
+                        break;
+                    case Direction.Down:
+                        this.Sprite = new string[]
+                        {
+                            " CCCC ",
+                            "CCCCCC",
+                            " C  C "
+                        };
+                        break;
+                }
+            }
         }
 
         //Comportamento
@@ -58,6 +113,13 @@ namespace PacMan
             {
                 this.CurrentPositionY = nextY;
                 this.CurrentPositionX = nextX;
+
+                UpdateAnimation();
+            }
+            else
+            {
+                _isMouthOpen = false;
+                UpdateAnimation();
             }
         }
 
