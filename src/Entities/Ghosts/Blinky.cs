@@ -5,6 +5,7 @@ namespace PacMan
         public Blinky(Map gameMap, PacMan pacman) : base(gameMap, pacman)
         {
             this.Color = ConsoleColor.Red;
+            this.OriginalColor = this.Color;
         }
 
         public override void Move()

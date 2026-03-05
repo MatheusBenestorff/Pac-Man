@@ -5,6 +5,7 @@ namespace PacMan
     public class GameManager
     {
         private PacMan _pacman;
+        private const int FPS = 150;
         private int _currentLevel;
         private bool _isGameRunning;
 
@@ -228,7 +229,7 @@ namespace PacMan
                 }
 
                 //FPS
-                Thread.Sleep(200);
+                Thread.Sleep(FPS);
             }
 
             return levelCleared;

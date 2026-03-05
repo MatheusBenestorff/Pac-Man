@@ -25,8 +25,8 @@ namespace PacMan
 
             this.Sprite = new string[]
             {
-                @" /  \\",
-                @"| oo |",
+                @" /   \",
+                @"|o o |",
                 @" vv vv"
             };
         }
@@ -115,7 +115,6 @@ namespace PacMan
         public void SetVulnerable()
         {
             this.State = EntityState.Vulnerable;
-            this.OriginalColor = this.Color;
             this.Color = ConsoleColor.Blue;
         }
 

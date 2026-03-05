@@ -5,6 +5,7 @@ namespace PacMan
         public Clyde(Map gameMap, PacMan pacman) : base(gameMap, pacman)
         {
             this.Color = ConsoleColor.DarkYellow;
+            this.OriginalColor = this.Color;
         }
 
         public override void Move()

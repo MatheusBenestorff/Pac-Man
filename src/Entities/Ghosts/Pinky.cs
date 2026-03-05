@@ -7,6 +7,7 @@ namespace PacMan
         public Pinky(Map gameMap, PacMan pacman) : base(gameMap, pacman)
         {
             this.Color = ConsoleColor.Magenta;
+            this.OriginalColor = this.Color;
         }
 
         public override void Move()

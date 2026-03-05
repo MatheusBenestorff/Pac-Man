@@ -3,10 +3,12 @@ namespace PacMan
     public class Inky : Ghost
     {
         private readonly Blinky _blinky;
-        
+
         public Inky(Map gameMap, PacMan pacman, Blinky blinky) : base(gameMap, pacman)
         {
             this.Color = ConsoleColor.Cyan;
+            this.OriginalColor = this.Color;
+
             this._blinky = blinky;
         }
 
