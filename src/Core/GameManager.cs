@@ -111,6 +111,8 @@ namespace PacMan
             int powerTimer = 0;
             const int POWER_DURATION = 40;
 
+            int gameTick = 0;
+
             while (isLevelRunning)
             {
                 //PROCESSAR INPUT
@@ -184,9 +186,14 @@ namespace PacMan
                     }
                 }
 
-                foreach (Ghost ghost in ghosts)
+                gameTick++; 
+
+                if (gameTick % 3 != 0)
                 {
-                    ghost.Move();
+                    foreach (Ghost ghost in ghosts)
+                    {
+                        ghost.Move();
+                    }
                 }
 
                 bool pacmanDied = false;
