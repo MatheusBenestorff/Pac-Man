@@ -33,7 +33,50 @@ private const int RESPAWN_TIME = 25;
             };
         }
 
+        private void UpdateAnimation()
+        {
 
+            if (this.State == EntityState.Eaten)
+            {
+                this.Sprite = new string[]
+                {
+                    @"      ",
+                    @" o  o ",
+                    @"      "
+                };
+                return;
+            }
+
+            if (this.State == EntityState.Vulnerable)
+            {
+                this.Sprite = new string[]
+                {
+                    @"/----\",
+                    @"|o  o|",
+                    @"vv  vv"
+                };
+                return;
+            }
+
+            if(CurrentDirection == Direction.Left)
+            {
+                this.Sprite = new string[]
+                {
+                    @"/    \",
+                    @"|o o |",
+                    @"vv  vv"
+                };
+            }
+            else
+            {
+                this.Sprite = new string[]
+                {
+                    @"/    \",
+                    @"| o o|",
+                    @"vv  vv"
+                };  
+            }
+        }
 
         public override void Move()
         {
