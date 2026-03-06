@@ -65,7 +65,7 @@ namespace PacMan
                     case Direction.Up:
                         this.Sprite = new string[]
                         {
-                            " C  C ",
+                            "C    C",
                             "CCCCCC",
                             " CCCC "
                         };
@@ -75,7 +75,7 @@ namespace PacMan
                         {
                             " CCCC ",
                             "CCCCCC",
-                            " C  C "
+                            "C    C"
                         };
                         break;
                 }

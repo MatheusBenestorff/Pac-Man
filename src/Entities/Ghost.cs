@@ -6,6 +6,8 @@ namespace PacMan
         protected readonly PacMan _pacman;
         public ConsoleColor OriginalColor { get; protected set; }
         private static readonly Random _random = new Random();
+        private int _respawnTimer = 0;
+private const int RESPAWN_TIME = 25;
 
         public Ghost(Map gameMap, PacMan pacman)
         {
@@ -25,11 +27,14 @@ namespace PacMan
 
             this.Sprite = new string[]
             {
-                @" /   \",
-                @"|o o |",
-                @" vv vv"
+                @"/    \",
+                @"| o o|",
+                @"vv  vv"
             };
         }
+
+
+
         public override void Move()
         {
             MoveRandomly();
@@ -55,6 +60,8 @@ namespace PacMan
             {
                 this.CurrentPositionX = nextX;
                 this.CurrentPositionY = nextY;
+
+                UpdateAnimation();
             }
             else
             {
@@ -66,6 +73,18 @@ namespace PacMan
         {
             this.PreviousPositionX = this.CurrentPositionX;
             this.PreviousPositionY = this.CurrentPositionY;
+
+            if (this.State == EntityState.Eaten)
+            {
+                _respawnTimer--;
+                
+                if (_respawnTimer <= 0)
+                {
+                    ResetPosition(); 
+                    SetNormal();     
+                }
+                return;
+            }
 
             if (this.State == EntityState.Vulnerable)
             {
@@ -116,6 +135,14 @@ namespace PacMan
         {
             this.State = EntityState.Vulnerable;
             this.Color = ConsoleColor.Blue;
+        }
+
+        public void SetEaten()
+        {
+            this.State = EntityState.Eaten;
+            this._respawnTimer = RESPAWN_TIME;
+            this.Color = ConsoleColor.White;
+            UpdateAnimation(); 
         }
 
         public void SetNormal()

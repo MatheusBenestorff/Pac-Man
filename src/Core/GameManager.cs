@@ -154,7 +154,10 @@ namespace PacMan
 
                     foreach (Ghost ghost in ghosts)
                     {
-                        ghost.SetVulnerable();
+                        if(ghost.State != EntityState.Eaten)
+                        {
+                            ghost.SetVulnerable();
+                        }
                     }
 
                     if (map.RemainingPoints == 0)
@@ -195,8 +198,7 @@ namespace PacMan
                         if (ghost.State == EntityState.Vulnerable)
                         {
                             _pacman.CollectPoint(200);
-                            ghost.ResetPosition();
-                            ghost.SetNormal();
+                            ghost.SetEaten();
                         }
                         else if (ghost.State == EntityState.Normal)
                         {
