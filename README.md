@@ -8,7 +8,7 @@ A classic Pac-Man clone developed purely in **C# (Vanilla)** to run directly in 
 
 ---
 
-![alt text](screenshots/image.png)
+![alt text](screenshots/image2.png)
 
 ## Tech Stack
 
