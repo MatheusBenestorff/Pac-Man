@@ -4,7 +4,11 @@ A classic Pac-Man clone developed purely in **C# (Vanilla)** to run directly in 
 
 ---
 
-![alt text](image.png)
+![alt text](screenshots/image-1.png)
+
+---
+
+![alt text](screenshots/image.png)
 
 ## Tech Stack
 

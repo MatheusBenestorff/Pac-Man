@@ -33,8 +33,6 @@ namespace PacMan
                 Console.WriteLine("============= TELA MUITO PEQUENA =============");
                 Console.ResetColor();
                 Console.WriteLine("\nO labirinto gigante não cabe nesta janela!");
-                Console.WriteLine($"-> Tamanho necessário: {requiredWidth} colunas x {requiredHeight} linhas.");
-                Console.WriteLine($"-> Tamanho atual:      {Console.WindowWidth} colunas x {Console.WindowHeight} linhas.\n");
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("O QUE FAZER:");
