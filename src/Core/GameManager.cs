@@ -76,9 +76,7 @@ namespace PacMan
 
             if (!File.Exists(mapPath))
             {
-                Console.Clear();
-                Console.WriteLine("Parabéns! Você zerou o jogo!");
-                Thread.Sleep(3000);
+                GameScreens.ShowGameCompletedScreen(_pacman.Points);
                 return false;
             }
 
@@ -141,7 +139,7 @@ namespace PacMan
 
                     if (map.RemainingPoints == 0)
                     {
-                        renderer.ShowWinScreen();
+                        GameScreens.ShowWinScreen(_pacman.Points, levelNumber);
 
                         levelCleared = true;
                         isLevelRunning = false;
@@ -164,7 +162,7 @@ namespace PacMan
 
                     if (map.RemainingPoints == 0)
                     {
-                        renderer.ShowWinScreen();
+                        GameScreens.ShowWinScreen(_pacman.Points, levelNumber);
                         levelCleared = true;
                         isLevelRunning = false;
                     }
@@ -252,11 +250,8 @@ namespace PacMan
 
             if (_pacman.Life <= 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("=== GAME OVER ===");
-                Console.ResetColor();
-                Console.WriteLine($"Sua pontuação final foi: {_pacman.Points}");
-                Thread.Sleep(2000);
+
+                GameScreens.ShowGameOverScreen(_pacman.Points);
 
                 SaveSystem.DeleteSave();
             }

@@ -154,15 +154,6 @@ namespace PacMan
             Console.ResetColor();
         }
 
-        public void ShowWinScreen()
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("===========================");
-            Console.WriteLine("          YOU WON!         ");
-            Console.WriteLine("===========================");
-            Console.ResetColor();
-            Thread.Sleep(2000);
-        }
+
     }
 }

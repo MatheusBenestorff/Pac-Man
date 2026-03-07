@@ -6,7 +6,7 @@ namespace PacMan
 
         private bool _isMouthOpen = true;
 
-        public int Life { get; set; } = 3;
+        public int Life { get; set; } = 7;
         public int Points { get; set; } = 0;
 
         public PacMan(Map gameMap)
