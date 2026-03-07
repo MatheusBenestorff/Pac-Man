@@ -25,6 +25,24 @@ A classic Pac-Man clone developed purely in **C# (Vanilla)** to run directly in 
 
 ---
 
+## How to create a map
+
+Create a text file with the name *"level{number}"* and save it in the folder maps/. 
+
+*Symbol meaning:*
+
+- 'H' = **wall**
+
+- '(space)' = **point**
+
+- '<' = **pacman spawn point**
+
+- 'o' = **ghost's spawn point**
+
+- '*' = **powerpeelet**
+
+---
+
 ## How to Run
 
 This game has been containerized to ensure that you can play it without having to install the .NET SDK on your machine.

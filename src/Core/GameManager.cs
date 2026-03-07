@@ -49,7 +49,7 @@ namespace PacMan
         {
             _currentLevel = 1;
 
-            _pacman = new PacMan(new Map("maps/level1.pacmap"));
+            _pacman = new PacMan(new Map("maps/level1.txt"));
 
             if (selectedOption == 0) // Novo Jogo
             {
@@ -72,7 +72,7 @@ namespace PacMan
         private bool PlayLevel(int levelNumber)
         {
 
-            string mapPath = $"maps/level{levelNumber}.pacmap";
+            string mapPath = $"maps/level{levelNumber}.txt";
 
             if (!File.Exists(mapPath))
             {
