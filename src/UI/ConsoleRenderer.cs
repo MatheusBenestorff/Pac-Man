@@ -145,11 +145,42 @@ namespace PacMan
 
         public void DrawHUD(PacMan pacman, int levelNumber)
         {
-            Console.SetCursorPosition(0, (_map.Height * SCALE_Y) + 1);
+            int hudY = (_map.Height * SCALE_Y);
 
+            Console.SetCursorPosition(0, hudY);
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Write(new string('=', _map.Width * SCALE_X));
+
+            Console.SetCursorPosition(0, hudY + 1);
+
+            // LEVEL
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"  LEVEL: {levelNumber}  ");
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("|");
+
+            // SCORE
             Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("  SCORE: ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"{pacman.Points:D5}  "); 
 
-            Console.Write($"Level: {levelNumber}  |  Lives: {pacman.Life}  |  Points: {pacman.Points}      ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("|");
+
+            // LIVES 
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("  LIVES: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            
+            string livesIcons = "";
+            for (int i = 0; i < pacman.Life; i++)
+            {
+                livesIcons += "C "; 
+            }
+            
+            Console.Write(livesIcons.PadRight(10)); 
 
             Console.ResetColor();
         }
